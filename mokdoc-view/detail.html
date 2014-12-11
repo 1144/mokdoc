@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mokdoc - 文档生成工具 - by MOKDOC</title>
+<link rel="Shortcut Icon" href="images/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<header>
+	<nav>
+		<ul>
+			<li id="nav-index"><a href="index.html">目录</a></li>
+			<li id="nav-list-class"><a href="list.html?type=class">类</a></li>
+			<li id="nav-list-dict"><a href="list.html?type=dict">字典</a></li>
+			<li id="nav-list-know"><a href="list.html?type=know">知识库</a></li>
+			<li id="nav-search"><a href="search.html">搜索</a></li>
+			<li><a href="doc.zip">下载文档</a></li>
+		</ul>
+		<div id="ver"></div>
+	</nav>
+</header>
+<main>
+	<div class="head">
+		<div class="logo">
+			<a href="index.html" id="logo"></a>
+		</div>
+		<div class="search">
+			<form onsubmit="doc.search();return false;">
+				<div class="search_cnt">
+					<span class="so_1">
+						<input id="kw" type="text" placeholder="输入关键词开始搜索..." value="" autocomplete="off" />
+					</span>
+					<span class="so_2"><input type="submit" value="GO~" /></span>
+				</div>
+			</form>
+		</div>
+	</div>
+</main>
+<main id="content-wrap">
+	<nav class="menu">
+		<ul id="menu">
+			<li class="j-menu active"><a href="javascript:;">详情</a></li>
+		</ul>
+	</nav>
+
+	<div class="content j-content content-active">
+		<div class="detail-wrap">
+			<div class="detail" id="detail">
+				<dl>
+					<dt><id>BLog.dellog</id><arg>(name, value, opr)</arg><span>静态方法</span><span><a href="#" title="所在文件" target="_blank">bz/foo.js</a></span></dt>
+					<dd>mokdoc示例代码。最新动态请参看<a href="http://mokjs.com/mokdoc/" target="_blank">mokjs官方网站</a>。</dd>
+					<dd class="tit">参数：</dd>
+					<dd class="cont"><table>
+						<tr class="pth"><td>名称</td><td>类型</td><td>描述</td></tr>
+						<tr><td class="pn">name</td><td>string</td><td>名称，如果很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</td></tr>
+						<tr><td class="pn">value</td><td>number</td><td>值</td></tr>
+						<tr><td class="pn">opt</td><td>object</td><td>配置选项
+							<p><b>onStart</b>: 开始删除</p>
+							<p><b>onEnd</b>: 删除完毕</p>
+						</td></tr>
+					</table></dd>
+					<dd class="tit">提示：</dd>
+					<dd class="cont"><ul>
+						<li>▪ 最好怎么怎么样。</li>
+						<li>▪ 请遵照规范。</li>
+						<li>▪ 要是怎么这么你就等死吧。</li>
+					</ul></dd>
+					<dd class="tit">示例：</dd>
+					<dd class="eg">
+						var msg = 'Hello world!';<br/>
+						var foo = 'foo';<br/>
+						var bar = 'bar';<br/>
+					</dd>
+					<dd class="tit">其他：</dd>
+					<dd class="cont"><ul>
+						<li>▪ 作者：hahaboy</li>
+						<li>▪ 版本：0.1.1</li>
+					</ul></dd>
+				</dl>
+				<p class="addr">文档地址：<input title="可以复制给小伙伴~" size="80" type="text" value="" onclick="this.select();" /></p>
+			</div>
+		</div>
+	</div>
+</main>
+
+<footer>
+	<div class="line"></div>
+	<ul>
+		<li><a href="http://weibo.com/520654321" target="_blank" title="攻城氏的新浪微博">攻城氏</a>出品</li>
+		<li><a href="http://mokjs.com/mokdoc/" target="_blank" title="专业解决项目文档问题">关于mokdoc</a></li>
+		<li><a href="http://mokjs.com/" target="_blank" title="前端模块化开发框架">关于mokjs</a></li>
+		<li><a href="https://github.com/1144" target="_blank" title="1144 - 前端工具、框架开源组织">1144@GitHub</a></li>
+	</ul>
+</footer>
+
+<script type="text/javascript">
+	document.write('<script type="text/javascript" src="CONF.js?'+Math.random()+'"></scr'+'ipt>');
+</script>
+<script type="text/javascript">
+	__loadjs('data/ALL_COMMENTS.js');
+	__loadjs('data/DICT_LIST.js');
+	__loadjs('data/DICT_CONTENT.js');
+	__loadjs('data/KNOW.js');
+
+	__loadjs('js/common.js');
+	__loadjs('js/colorCode.js');
+	__loadjs('js/showDetail.js');
+	__loadjs('js/detail.js');
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mokdoc - 文档生成工具 - by MOKDOC</title>
+<link rel="Shortcut Icon" href="images/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<header>
+	<nav>
+		<ul>
+			<li id="nav-index"><a href="index.html">目录</a></li>
+			<li id="nav-list-class"><a href="list.html?type=class">类</a></li>
+			<li id="nav-list-dict"><a href="list.html?type=dict">字典</a></li>
+			<li id="nav-list-know"><a href="list.html?type=know">知识库</a></li>
+			<li id="nav-search"><a href="search.html">搜索</a></li>
+			<li><a href="doc.zip">下载文档</a></li>
+		</ul>
+		<div id="ver"></div>
+	</nav>
+</header>
+<main>
+	<div class="head">
+		<div class="logo">
+			<a href="index.html" id="logo"></a>
+		</div>
+		<div class="search">
+			<form onsubmit="doc.search();return false;">
+				<div class="search_cnt">
+					<span class="so_1">
+						<input id="kw" type="text" placeholder="输入关键词开始搜索..." value="" autocomplete="off" />
+					</span>
+					<span class="so_2"><input type="submit" value="GO~" /></span>
+				</div>
+			</form>
+		</div>
+	</div>
+</main>
+
+<main id="content-wrap">
+	<nav class="menu">
+		<ul id="menu">
+			<li class="active"><a href="javascript:;" id="list-name">目录</a></li>
+		</ul>
+	</nav>
+
+	<div class="content content-active" id="list">
+		还没有内容~
+		<ul class="datalist id2desc">
+			<li><a href="#" class="id">Pager</a> : 示例数据</li><li><a href="#">Dialog</a> : 示例数据</li>
+		</ul>
+	</div>
+</main>
+
+<footer>
+	<div class="line"></div>
+	<ul>
+		<li><a href="http://weibo.com/520654321" target="_blank" title="攻城氏的新浪微博">攻城氏</a>出品</li>
+		<li><a href="http://mokjs.com/mokdoc/" target="_blank" title="专业解决项目文档问题">关于mokdoc</a></li>
+		<li><a href="http://mokjs.com/" target="_blank" title="前端模块化开发框架">关于mokjs</a></li>
+		<li><a href="https://github.com/1144" target="_blank" title="1144 - 前端工具、框架开源组织">1144@GitHub</a></li>
+	</ul>
+</footer>
+
+<script type="text/javascript">
+	document.write('<script type="text/javascript" src="CONF.js?'+Math.random()+'"></scr'+'ipt>');
+</script>
+<script type="text/javascript">
+	__loadjs('data/ALL_COMMENTS.js');
+	__loadjs('data/DICT_LIST.js');
+	__loadjs('data/KNOW.js');
+
+	__loadjs('js/common.js');
+	__loadjs('js/list.js');
+</script>
+</body>
+</html>
