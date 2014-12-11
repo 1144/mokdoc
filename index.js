@@ -14,12 +14,15 @@ mokdoc.config = {
 mokdoc.start = function(projectName, callback){
 	var config = this.config._projects[projectName];
 	if(!config){
-		console.log('没有配置项目，生成文档失败');
+		console.error('MOKDOC-001: 没有配置项目，生成文档失败');
 		return;
 	}
-	var main = require('./main');
-	main.start(config, false);
+	require('./main').start(config);
 	typeof callback === 'function' && callback();
 };
+
+process.on('uncaughtException', function(err){ //捕获漏网的异常
+	console.error('\nMOKDOC-003: 发生异常，生成文档失败：\n' + err.stack);
+});
 
 module.exports = mokdoc;

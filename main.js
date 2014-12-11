@@ -196,27 +196,11 @@ function makeDir(doc_path){
 	FS.existsSync(path_code) || FS.mkdirSync(path_code);
 }
 
-var fakeResponse = {
-	_fake_: true,
-	writeHead: function(){},
-	write: function(msg){
-		//'\n' replace <br/>, '' replace <br />
-		console.log(msg.replace(/<br\/>/g, '\n').replace(/<.+?>/g, ''));
-	},
-	end: function(msg){
-		this.write(msg);
-	}
-};
-
-exports.start = function(config, response){
+exports.start = function(config){
+	var trace = require('./trace');
 	prj_conf = config;
-	if(response){	//从浏览器地址栏命令来
-		response.write(HEAD_HTML.replace('{{title}}', '提取注释生成文档'));
-	}else{	//命令行来
-		response = fakeResponse;
-	}
 	if(!prj_conf.doc_path){
-		response.end('MOKDOC-001: 没有配置保存文档数据的路径。</body></html>');
+		trace.error('MOKDOC-002: 没有配置保存文档数据的路径。');
 		return;
 	}
 	var start_time = Date.now();
@@ -225,26 +209,23 @@ exports.start = function(config, response){
 	makeDir(prj_conf.doc_path);
 	init();
 
-	response.write('<br />=== 正在从文件里提取注释 ...');
+	trace.log('=== 正在从文件里提取注释 ...');
 		prj_conf.path[prj_path_len-1]==='/' ? readAllFiles(prj_conf.path.slice(0,-1)) :
 			(prj_path_len+=1, readAllFiles(prj_conf.path));
-	response.write('<br />=== 提取完毕');
+	trace.ok('=== 提取完毕');
 	if(doc.err_log.length){
 		var err_log = doc.err_log, k;
-		response.write('<br /><br/>发生错误：');
+		trace.error('\n发生错误：');
 		for(k = 0; k < err_log.length; k++){
-			response.write('<br />'+err_log[k]);
+			trace.error(err_log[k]);
 		}
-		response.end('<br /><br/>====== 囧，生成文档失败了 TAT...</body></html>');
+		response.end('\n====== 囧，生成文档失败了 TAT...');
 		return;
 	}
-	response.write('<br /><br/>====== 正在保存数据 ...');
+	trace.log('\n====== 正在保存数据 ...');
 		outputData(prj_conf.doc_path);
-	response.write('<br />====== 保存成功！');
-	response.write('<br /><br/>====== 生成文档成功！');
-	if(!response._fake_ && prj_conf.doc_url){
-		response.write('<a href="'+prj_conf.doc_url+'" target="blank">点击查看</a>');
-	}
-	response.write('<br />====== 总共用时：'+(Date.now()-start_time)/1000+' s.');
-	response.end('</body></html>');
+	trace.ok('====== 保存成功！');
+	trace.ok('\n====== 生成文档成功！');
+	trace.log('====== 文档保存目录：'+prj_conf.doc_path);
+	trace.log('\n总共用时：'+(Date.now()-start_time)/1000+' s.');
 };
