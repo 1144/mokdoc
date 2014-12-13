@@ -1,6 +1,6 @@
 # 项目文档生成工具
 
-从JavaScript代码里提取注释生成项目文档。[项目官网](http://mokjs.com/mokdoc)
+从JavaScript代码里提取注释生成项目文档。注释规范及示例请移步到 [项目官网](http://mokjs.com/mokdoc) 查阅。
 
 ## 安装
 
