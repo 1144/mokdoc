@@ -23,6 +23,19 @@
 		console.log('Yes, done!');
 	});
 ```
+```javascript
+	//可以给默认的标签设置别名
+	var mokdoc = require('mokdoc');
+	mokdoc.config.set('air', {
+		path: 'D:/ws/air/trunk',
+		doc_path: 'D:/zzz',
+		//标签别名与标签的映射
+		alias2tagid: {
+			'return': 'r',
+			'version': 'ver'	//设置后version与ver等效，两个标签都可以使用
+		}
+	});
+```
 
 默认的文档展示包即mokdoc下的mokdoc-view文件夹，拷贝到你的任意磁盘目录下，然后将doc_path指到那里就好了。
 
