@@ -2,7 +2,7 @@
 	var src = ALL_COMMENTS; //缓存到局部
 	var $idlist = $('#idlist'), $dragbar = $('.dragbar'), $detailWrap = $('.detail-wrap');
 
-	var openFolder = function(folder){
+	var openFolder = function (folder) {
 		var hasParent = !!folder;
 		var parentFoler = folder + '/';
 		var x = parentFoler.length;
@@ -43,13 +43,14 @@
 		folderList.sort(function(a, b){
 			return a.toLowerCase()>b.toLowerCase() ? 1 : -1;
 		});
-		var blank = new Array(parentFoler.split('/').length).join('<i></i>');
+		var deepth = parentFoler.split('/').length,
+			blank = new Array(deepth).join('<i></i>');
 		for(i = 0, len = folderList.length; i < len; i++){ //生成html
 			item = folderList[i];
 			html += '<li folder="'+folder+'">'+blank+
 				'<i class="tree-node" cpo-name="open-tree-node">+</i>' +
 				'<a href="javascript:;" data-folder="'+parentFoler+item+
-				'" cpo-name="open-folder">'+item +'</a></li>';
+				'" cpo-name="open-folder" class="j-deepth-'+deepth+'">'+item+'</a></li>';
 		}
 		fileList.sort(function(a, b){
 			return a.toLowerCase()>b.toLowerCase() ? 1 : -1;
@@ -65,7 +66,7 @@
 		return html;
 	};
 	
-	$idlist.html( openFolder('') );
+	$idlist.html(openFolder(''));
 
 	Cpo.on('open-tree-node', function(ctar){
 		Cpo.emit('open-folder', ctar.nextSibling);
@@ -88,6 +89,7 @@
 					$lis[i].parentNode.removeChild($lis[i]);
 				}
 			}
+			dragbarHeight();
 		}
 	});
 
@@ -106,9 +108,10 @@
 		//dragbarHeight();
 	});
 
+	var barTimer = 0;
 	function dragbarHeight(){
-		//$dragbar.css('height', 350);
-		setTimeout(function(){
+		clearTimeout(barTimer);
+		barTimer = setTimeout(function(){
 			$dragbar.css('height', Math.max(350, $idlist.height(), $detailWrap.height()));
 		}, 15);
 	}
@@ -150,5 +153,15 @@
 	}();
 
 	$('#detail').html('Version: '+CONF.version.slice(1)+'　Update: '+CONF.date);
-	
+
+	function unfoldFolder(deepth) {
+		var folders = $('.j-deepth-' + deepth),
+			i = 0, len = folders.length;
+		for (; i < len; i++) {
+			Cpo.emit('open-folder', folders[i]);
+		}
+	}
+
+	unfoldFolder('1');
+
 }();

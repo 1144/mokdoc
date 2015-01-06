@@ -296,7 +296,8 @@ $(function(){
 	var doc = {};
 
 	!function(){
-		var pagename = window.location.href.match(/\/(\w+)\.html/)[1];
+		var pagename = window.location.href.match(/\/(\w+)\.html/);
+		pagename = pagename ? pagename[1] : 'index';
 		var type = Url.getQuery('type');
 		$('#nav-'+pagename+ (type?'-'+type:'') ).addClass('cur');
 	}();

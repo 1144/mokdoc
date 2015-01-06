@@ -1,10 +1,10 @@
 
 var CONF = {
-	version: '?0.0.1', //文档版本号，注意以问号开头
-	date: '2014-08-15 11:20', //文档数据提取时间
-	title: 'lejs文档',
+	version: '?0.0.2', //文档版本号，注意以问号开头
+	date: '2015-01-01 22:20', //文档数据提取时间
+	title: 'air组件库各组件API',
 	//logo: '<img src="images/lejs.png" />'
-	logo: 'lejs'
+	logo: 'air'
 };
 
 

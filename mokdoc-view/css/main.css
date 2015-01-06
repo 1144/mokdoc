@@ -17,6 +17,9 @@ dd{margin-left:30px;}
 .eg .c{color:#999}
 .eg .t{display:inline-block; width:8px;}
 .imp{color:#F00; margin:0 3px}
+r {color:red}
+rb {color:red; font-weight:bold}
+cs {background-color:#eee; border-radius:3px; margin:3px; padding:2px 3px;} /*code sheet*/
 
 main,.head,footer{ max-width:1400px; min-width:320px; margin:0 auto;}
 header{ background:#1B1B1B;}
@@ -45,7 +48,7 @@ main{padding:0 20px;}
 .search_cnt input{border:none; height:32px; line-height:2em; outline-style:none;}
 .search_cnt .so_1 {margin-top:1px;}
 .search_cnt .so_1 input{padding-left:10px;margin-left:3px;width:350px;}
-.search_cnt .so_2 input{width:70px; color:#ffffff; font-weight:bold;
+.search_cnt .so_2 input{width:70px; color:#ffffff; font-weight:bold; cursor:pointer;
     background: -moz-linear-gradient(90deg, #1ab4d0, #29cbd8);
     background:-webkit-gradient(linear,0% 80%,0% 0%, from(#1ab4d0),to(#29cbd8));}
 
@@ -73,7 +76,7 @@ main{padding:0 20px;}
 #detail dt span{color:#999; margin-left:35px;}
 #detail dt span a{color:#999;text-decoration:underline;}
 
-#detail dd{margin-bottom:6px;}
+#detail dd{font-size:1.1em;line-height:24px;margin-bottom:6px;}
 #detail .tit{font-weight:bold;color:#666;margin-bottom:0;}
 #detail .cont{padding-left:33px;}
 #detail table{border-collapse:collapse;border:#ccc solid 1px;margin-bottom:10px;}
