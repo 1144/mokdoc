@@ -292,6 +292,35 @@ $(function(){
 		}
 	};
 
+	var clip = function (str, clipLen, limitLen, suffix) {
+		if (!str) {
+			return '';
+		}
+		var len = str.length;
+		if (len*2 <= clipLen) {return str}
+		if (typeof limitLen !== 'number') {
+			suffix = limitLen; //没有传limitLen
+			limitLen = clipLen;
+		}
+		suffix || (suffix = '…');
+
+		var a = 0, clipi = 0, i = 0;
+		for (; i < len; i++) {
+			if (str.charCodeAt(i) > 255) {
+				a += 2;
+			} else {
+				a++;
+			}
+			if (a > clipLen && clipi === 0) {
+				clipi = i;
+			}
+			if (a > limitLen) {
+				return str.slice(0, clipi) + suffix;
+			}
+		}
+		return str;
+	};
+
 	//业务级功能开始
 	var doc = {};
 

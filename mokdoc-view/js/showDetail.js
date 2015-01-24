@@ -12,7 +12,7 @@
 	doc.renderComment = function(item, pre){
 		var id = item.id || item.f;
 		if(pre){
-			id = '- ' + id.replace(pre, '');
+			id = '- '+id.replace(pre, '');
 		}
 		var html = '<dl><dt><id>'+(item.t&&item.t.indexOf(' class ')>-1?'new ':'')+id+'</id>';
 		var j, n, htm = '';
@@ -30,7 +30,7 @@
 			}
 			htm += '</table></dd>';
 			html += '<arg>('+arg.join(', ')+')</arg>';
-		}else if(!item.nf){
+		} else if (item.id && !item.nf) { //文件注释没有id
 			html += '<arg>()</arg>';
 		}
 		if(item.t){
@@ -147,34 +147,62 @@
 	//type 0 评论，1 数据字典，2 知识库
 	doc.showDetail = function(item, type){
 		var html;
-		if(type===0){
+		if (type===0) {
 			var src = ALL_COMMENTS, len = src.length, i, id;
-			if(typeof item==='string'){
+			if (typeof item==='string') {
 				id = item, item = '';
-				for(i = 0; i < len; i++){
-					if(src[i].id===id){
-						item = src[i];
-						break;
+				if (id.slice(-3)==='.js') {
+					for (i = 0; i < len; i++) {
+						if (src[i].f===id) {
+							item = src[i];
+							break;
+						}
+					}
+				} else {
+					for (i = 0; i < len; i++) {
+						if (src[i].id===id) {
+							item = src[i];
+							break;
+						}
 					}
 				}
 				item || (item = {id:id, desc:'', f:'', nf:true});
 			}
-			html = doc.renderComment(item);
 
+			var j = item.id.lastIndexOf('.'), parentItem;
+			if (j>0) {
+				//有“父级”对象，先查找并渲染父级对象
+				id = item.id.slice(0, j);
+				for (i = 0; i < len; i++) {
+					if (src[i].id===id) {
+						parentItem = src[i];
+						break;
+					}
+				}
+				html = doc.renderComment(parentItem || {id:id, desc:'', f:'', nf:true});
+				html += doc.renderComment(item, id+'.');
+			} else {
+				html = doc.renderComment(item);
+			}
+
+			//展示挂在当前id下的所有属性
 			id = item.id+'.';
-			for(i = 0; i < len; i++){
-				if((src[i].id||'').indexOf(id)===0 && src[i].id.slice(id.length).indexOf('.')<0){
+			for (i = 0; i < len; i++) {
+				if ((src[i].id || '').indexOf(id)===0 &&
+					src[i].id.slice(id.length).indexOf('.')<0) {
 					html += doc.renderComment(src[i], id);
 				}
 			}
-		}else if(type===1){
+		} else if (type===1) {
 			html = doc.renderDict(item);
-		}else if(type===2){
+		} else if (type===2) {
 			html = doc.renderKnow(item);
 		}
-		item.id && (html += '<p class="addr">文档地址：<input title="可以复制给小伙伴~" ' +
-			'size="80" type="text" onclick="this.select();" value="' +
-			DETAIL+type+'&id='+encodeURIComponent(item.id)+'" /></p>');
+		if (item.id) {
+			html += '<p class="addr">文档地址：<input title="可以复制给小伙伴~" '+
+				'size="80" type="text" onclick="this.select();" value="'+
+				DETAIL+type+'&id='+encodeURIComponent(item.id)+'" /></p>';
+		}
 		$('#detail').html(html);
 
 		type<2 && doc.addHistory(item.id, type);
