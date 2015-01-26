@@ -71,17 +71,21 @@
 </script>
 <script type="text/javascript">
 	__loadjs('js/common.js');
-
+</script>
+<script type="text/javascript">
 	//显示历史查看
 	function showHistory(){
-		var his = Cookie.get('hist');
-		if(his){
-			his = his.split(',');
-			var i = his.length, item, html = '';
+		var hist = Cookie.get('hist');
+		if(hist){
+			hist = hist.split(',');
+			var i = hist.length, item, html = '', j = 1;
 			while(i--){
-				item = his[i].slice(1);
-				html += '<a data-id="'+ item +'" data-type="'+ his[i].charAt(0) +
-					'" href="javascript:;" cpo-name="show-detail">'+ item +'</a>';
+				item = hist[i].slice(1);
+				//html += '<a data-id="'+ item +'" data-type="'+ hist[i].charAt(0) +
+				//	'" href="javascript:;" cpo-name="show-detail">'+ item +'</a>';
+				html += '<a href="detail.html?type='+hist[i].charAt(0)+'&id='+item+'">'+item+'</a>';
+				j%5===0 && (html += '<br/>');
+				j++;
 			}
 			html && $('#history').html(html);
 		}

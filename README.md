@@ -39,6 +39,10 @@
 
 默认的文档展示包即mokdoc下的mokdoc-view文件夹，拷贝到你的任意磁盘目录下，然后将doc_path指到那里就好了。
 
+## 使用mokdoc生成文档的实例
+
+[air组件库API](http://mokjs.sinaapp.com/air-api)
+
 ## 版本发布记录
 
 请看 [CHANGELOG.md](https://github.com/1144/mokdoc/blob/master/CHANGELOG.md)

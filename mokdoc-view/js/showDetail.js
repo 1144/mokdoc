@@ -208,25 +208,25 @@
 		type<2 && doc.addHistory(item.id, type);
 	};
 
-	doc.addHistory = function(id, type){
-		if(!id){return}
-		id = String(type) + id;
-		var his = Cookie.get('hist');
-		if(his){
-			his = his.split(',');
-			var i = his.length;
-			while(i--){
-				if(id===his[i]){
-					his.splice(i, 1);
+	doc.addHistory = function (id, type) {
+		if (!id) {return}
+		id = String(type)+id;
+		var hist = Cookie.get('hist');
+		if (hist) {
+			hist = hist.split(',');
+			var i = hist.length;
+			while (i--) {
+				if (id===hist[i]) {
+					hist.splice(i, 1);
 					break;
 				}
 			}
-		}else{
-			his = [];
+		} else {
+			hist = [];
 		}
-		his.push(id);
-		his.length>50 && his.shift(0);
-		Cookie.set('hist', his.join(','));
+		hist.push(id);
+		hist.length>50 && hist.shift(0);
+		Cookie.set('hist', hist.join(','));
 	};
 	
 }();
