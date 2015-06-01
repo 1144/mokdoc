@@ -338,3 +338,11 @@ $(function(){
 			window.location.href = './search.html?kw=' + $('#kw').val();
 		}
 	};
+
+	var Tpl = {};
+	Tpl.simple = function (template, data) {
+		data || (data = {});
+		return template.replace(/{(\w+)}/g, function (match, _1) {
+			return data[_1] || (data[_1]===0 ? '0' : '');
+		});
+	};

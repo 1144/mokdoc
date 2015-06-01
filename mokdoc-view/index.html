@@ -43,7 +43,9 @@
 <main>
 	<div class="content index">
 		<div class="detail-wrap">
-			<div class="detail" id="detail"></div>
+			<div class="detail">
+				<table id="mainlist"></table>
+			</div>
 		</div>
 		<div class="sidebar">
 			<ul id="idlist"></ul>
@@ -71,7 +73,7 @@
 	__loadjs('js/showDetail.js');
 	__loadjs('js/index.js');
 
-	$('#detail').html('Version: '+CONF.version.slice(1)+'　Update: '+CONF.date);
+	//$('#detail').html('Version: '+CONF.version.slice(1)+'　Update: '+CONF.date);
 </script>
 </body>
 </html>

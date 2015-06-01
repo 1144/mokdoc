@@ -87,8 +87,9 @@ main{padding:0 20px;}
 #detail .eg{border:#ccc solid 1px;margin-top:3px; padding:5px 12px; background-color:#eee;border-radius:5px;}
 
 #list {word-break:break-all;}
-#list .datalist li{display:inline-block; margin-right:2%; width:48%; height:1.5em; overflow:hidden;}
+#list .datalist li{font-size:1.1em; display:inline-block; margin-right:2%; width:48%; height:1.5em; overflow:hidden;}
 #list .id2desc a{font-size:1.2em;width:60px;}
+#mainlist td{font-size:1.1em; padding:4px 10px;}
 
 #search-res dt{font-size:1.2em;}
 #search-res dt a{text-decoration:underline;}

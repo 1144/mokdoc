@@ -35,7 +35,7 @@
 				}
 				if (!id2desc.hasOwnProperty(filepath)) {
 					fileList.push(filepath);
-					id2desc[filepath] = clip(item.desc, 50);
+					id2desc[filepath] = clip(item.desc.replace(/<.*?>/g, ''), 80);
 				}
 			}
 		}
@@ -58,9 +58,9 @@
 		
 		for(i = 0, len = fileList.length; i < len; i++){ //生成html
 			item = fileList[i];
-			html += '<li folder="'+folder+'"><i></i>'+ blank +
+			html += '<li folder="'+folder+'"><i></i>'+blank+
 				'<a class="id" href="javascript:;" title="'+id2desc[item]+
-				'" cpo-name="show-detail">'+ item +'</a></li>';
+				'" cpo-name="show-detail">'+item+'</a></li>';
 		}
 		dragbarHeight();
 		return html;
@@ -120,7 +120,7 @@
 		}, 15);
 	}
 
-	!function(){ //左右拖拽
+	~function () { //左右拖拽
 		var MIN_X = 234, MAX_X = 600;
 		var offsetLeft = 0; //拖拽条的left值减去鼠标起始x
 		var $doc = $(window.document.documentElement);
@@ -165,5 +165,29 @@
 	}
 
 	unfoldFolder('1');
+
+	//渲染主内容区的列表
+	~function () {
+		var tpl = '<tr><td><a href="detail.html?type=0&id={0}">{0}</a></td><td>{1}</td></tr>';
+		var reg_id = /^\w+$/, reg_htmltag = /<.*?>/g;
+		var ids = [], id2desc = {}, html = '',
+			i, len, item, id;
+		for(i = 0, len = src.length; i < len; i++){
+			item = src[i];
+			id = item.id;
+			if (id && reg_id.test(id)) {
+				ids.push(id);
+				id2desc[id] = clip(item.desc.replace(reg_htmltag, ''), 80);
+			}
+		}
+		ids.sort(function (a, b) {
+			return a.toLowerCase()<b.toLowerCase() ? -1 : 1;
+		});
+		for (i = 0, len = ids.length; i < len; i++) {
+			id = ids[i];
+			html += Tpl.simple(tpl, [id, id2desc[id]]);
+		}
+		$('#mainlist').html(html);
+	}();
 
 }();

@@ -17,7 +17,7 @@
 	mokdoc.config.set('air', {
 		path: 'D:/ws/air/trunk',	//源代码路径
 		doc_path: 'D:/zzz',	//文档数据保存到哪里（要放到文档展示包里）
-		charset: 'utf8'	//可选。源代码的文件编码
+		exclude_list: ['/test/', '/util/xxx.js']
 	});
 	mokdoc.start('air', function(){
 		console.log('Yes, done!');
@@ -39,9 +39,23 @@
 
 默认的文档展示包即mokdoc下的mokdoc-view文件夹，拷贝到你的任意磁盘目录下，然后将doc_path指到那里就好了。
 
+## 配置项说明
+
+* __path__ - 源代码路径
+
+* __doc_path__ - 文档数据保存到哪里（要放到文档展示包里）
+
+* __charset__ - 源代码的文件编码。可选，默认`utf8`
+
+* __alias2tagid__ - 标签别名与标签的映射。可选
+
+* __file_ext__ - 只提取指定类型文件的注释。可选，默认`.js`
+
+* __exclude_list__ - 排除列表（数组），排除文件路径（包含文件名）中出现该列表指定的字符串的文件。可选
+
 ## 使用mokdoc生成文档的实例
 
-[air组件库API](http://mokjs.sinaapp.com/air-api)
+air组件库API：[http://mokjs.sinaapp.com/air-api](http://mokjs.sinaapp.com/air-api)
 
 ## 版本发布记录
 

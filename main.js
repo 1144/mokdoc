@@ -1,6 +1,5 @@
 var PATH = require('path'),
 	FS = require('fs'),
-	file_filter = require('./filter'),
 	stringifyData = require('./stringifyData'),
 	prj_conf,
 	doc,
@@ -134,42 +133,57 @@ function stopCollect(nextline){
 	initStatus();
 }
 
-function readAllFiles(path){
-	FS.readdirSync(path).forEach(function(filename){
-		var file = path+'/'+filename;
-		if(FS.statSync(file).isFile()){
-			if(file_filter(filename, path)){
-				doc.scope.f = file.slice(prj_path_len);
-				doc.scope.ns = '';
-				var fc = FS.readFileSync(file, charset), fd;
-				fd = FS.openSync(path_code + doc.scope.f, 'w', '0666');
-				FS.writeSync(fd, fc, 0, charset); //复制文件到代码文件夹下
-				FS.closeSync(fd);
-
-				var lines = fc.replace(/\r/g,'').split('\n'),
-					i = 0, len = lines.length, line;
-				for(; i < len; i++){
-					line = lines[i];
-					if(collecting){
-						if(reg_tag.test(line)){
-							collectTag(line);
-						}else if(reg_end.test(line)){
-							stopCollect(lines[i+1]);
-						}else{
-							collectText(line);
-						}
-					}else if(reg_start.test(line)){
-						collectTag('-desc'); //第一行是描述
-						collecting = true;
+function readAllFiles(root) {
+	var file_ext = prj_conf.file_ext || '.js',
+		ext_len = -1 * file_ext.length,
+		exclude_list = prj_conf.exclude_list || [],
+		ex_len = exclude_list.length;
+	var readFiles = function (path) {
+		FS.readdirSync(path).forEach(function (filename) {
+			var file = path+'/'+filename;
+			if (ex_len>0) {
+				var f = file+'/';
+				for (var j = 0; j < ex_len; j++) {
+					if (f.indexOf(exclude_list[j])>-1) {
+						return;
 					}
 				}
 			}
-		}else if(filename[0]!=='.'){ //.svn .github
-			var dir = path_code + file.slice(prj_path_len);
-			FS.existsSync(dir) || FS.mkdirSync(dir);
-			readAllFiles(file);
-		}
-	});
+			if (FS.statSync(file).isFile()) {
+				if(filename.slice(ext_len)===file_ext){
+					doc.scope.f = file.slice(prj_path_len);
+					doc.scope.ns = '';
+					var fc = FS.readFileSync(file, charset), fd;
+					fd = FS.openSync(path_code + doc.scope.f, 'w', '0666');
+					FS.writeSync(fd, fc, 0, charset); //复制文件到代码文件夹下
+					FS.closeSync(fd);
+
+					var lines = fc.replace(/\r/g,'').split('\n'),
+						i = 0, len = lines.length, line;
+					for(; i < len; i++){
+						line = lines[i];
+						if(collecting){
+							if(reg_tag.test(line)){
+								collectTag(line);
+							}else if(reg_end.test(line)){
+								stopCollect(lines[i+1]);
+							}else{
+								collectText(line);
+							}
+						}else if(reg_start.test(line)){
+							collectTag('-desc'); //第一行是描述
+							collecting = true;
+						}
+					}
+				}
+			} else if (filename[0]!=='.') { //.svn .github
+				var dir = path_code+file.slice(prj_path_len);
+				FS.existsSync(dir) || FS.mkdirSync(dir);
+				readFiles(file);
+			}
+		});
+	};
+	readFiles(root);
 }
 
 function outputData(){
@@ -210,7 +224,7 @@ exports.start = function(config){
 	init();
 
 	trace.log('=== 正在从文件里提取注释 ...');
-		prj_conf.path[prj_path_len-1]==='/' ? readAllFiles(prj_conf.path.slice(0,-1)) :
+		prj_conf.path[prj_path_len-1]==='/' ? readAllFiles(prj_conf.path.slice(0, -1)) :
 			(prj_path_len+=1, readAllFiles(prj_conf.path));
 	trace.ok('=== 提取完毕');
 	if(doc.err_log.length){
