@@ -76,6 +76,7 @@ function parseNextline(line){
 	var status = doc.status, id;
 	//判断是不是function，简单粗暴，99.9%正确就行了。。不是的话打上nf标记(not function)
 	status.fn || line.indexOf('function')>-1 || (comment.nf = 1);
+	status.nf && (comment.nf = 1); //或者直接被打上了nf标记
 	if(status.as){
 		id = status.as;
 	}else{
@@ -85,7 +86,7 @@ function parseNextline(line){
 		//xyz.def = ...
 		//efg = ...
 		id = line.replace(/^var |function /, '').replace(/\s/g,
-			'').match(/^([\w\$\.]+)([(=:])/);
+			'').match(/^([\w\$\.]+)([(=:])?/);
 		if(id){
 			if(id[2]===':'){
 				line = status.ns || doc.scope.ns;

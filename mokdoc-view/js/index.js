@@ -175,7 +175,7 @@
 		for(i = 0, len = src.length; i < len; i++){
 			item = src[i];
 			id = item.id;
-			if (id && reg_id.test(id)) {
+			if (id && reg_id.test(id) && !id2desc[id]) {
 				ids.push(id);
 				id2desc[id] = clip(item.desc.replace(reg_htmltag, ''), 80);
 			}
