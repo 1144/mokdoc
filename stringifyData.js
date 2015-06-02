@@ -9,7 +9,7 @@
 	}
 	kw = null;
 
-	var undef, reg_rep = /[\n\t\r\"\\]/g,
+	var undef, reg_rep = /[\n\t\r\"\\]/g, reg_d = /^\d/,
 		rep = {'\r':'\\r', '\n':'\\n', '\t':'\\t', '"':'\\"', '\\':'\\\\'};
 	/*--
 		将提取出的注释数据字符串化。
@@ -36,7 +36,7 @@
 					for(k in data){
 						if(data.hasOwnProperty(k) && k){
 							v = stringify(data[k]);
-							jskw[k] && (k = '"'+k+'"');
+							(jskw[k] || reg_d.test(k)) && (k = '"'+k+'"');
 							v===undef || res.push(k +':'+ v);
 						}
 					}
