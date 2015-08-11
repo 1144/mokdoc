@@ -1,6 +1,6 @@
 var PATH = require('path'),
 	FS = require('fs'),
-	stringifyData = require('./stringifyData'),
+	stringifyData = require('./lib/stringifyData'),
 	prj_conf,
 	doc,
 	charset, undef,
@@ -212,7 +212,7 @@ function makeDir(doc_path){
 }
 
 exports.start = function(config){
-	var trace = require('./trace');
+	var trace = require('./lib/trace');
 	prj_conf = config;
 	if(!prj_conf.doc_path){
 		trace.error('MOKDOC-002: 没有配置保存文档数据的路径。');
