@@ -1,6 +1,6 @@
 # 项目文档生成工具
 
-从JavaScript代码里提取注释生成项目文档。注释规范及示例请移步到 [项目官网](http://mokjs.com/mokdoc) 查阅。
+从JavaScript代码里提取注释生成项目文档。注释规范及示例请移步到 [mokdoc项目官网](http://mokjs.com/mokdoc) 查阅。
 
 ## 安装
 
@@ -11,6 +11,8 @@
 * __mokdoc.config.set__(projectName, conf) - 设置项目名称和对应的配置信息。
 
 * __mokdoc.start__(projectName, [callback]) - 开始生成文档。
+
+下载默认的文档展示包 [mokdoc-view](https://github.com/1144/mokdoc-view) ，放到你的任意磁盘目录下，然后将doc_path指到mokdoc-view里。
 
 ```javascript
 	var mokdoc = require('mokdoc');
@@ -36,8 +38,6 @@
 		}
 	});
 ```
-
-默认的文档展示包即mokdoc下的mokdoc-view文件夹，拷贝到你的任意磁盘目录下，然后将doc_path指到那里就好了。
 
 ## 配置项说明
 
