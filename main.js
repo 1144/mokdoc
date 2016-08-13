@@ -14,22 +14,24 @@ var PATH = require('path'),
 
 	all_tags,
 	tag_ids,
+	comment_ids, repeat_ids,
 	now_tag_data, //收集当前标记的数据
 	all_comments, //每个注释块用一个键值对存放在这里
 	comment, //记录单个注释块的信息
 	collecting; //正在解析某个标记
 
-function init(){
+function init() {
 	doc = require('./doc')();
 	all_tags = {};
 	tag_ids = {};
+	comment_ids = {}, repeat_ids = {};
 	now_tag_data = [];
 	all_comments = [];
 	initTags();
 	initStatus();
 }
 
-function initTags(){
+function initTags() {
 	FS.readdirSync(__dirname+'/tag').forEach(function(filename){
 		if(filename.slice(-3)==='.js'){
 			var tag_id = filename.slice(0, -3);
@@ -47,7 +49,7 @@ function initTags(){
 	}
 }
 
-function initStatus(){
+function initStatus() {
 	collecting = false;
 	doc.status = {t:[]};
 	comment = {};
@@ -72,7 +74,7 @@ function collectTag(line){
 		now_tag_data.push(line.replace(reg_left_s, '').slice(1));
 	}
 }
-function parseNextline(line){
+function parseNextline(line) {
 	var status = doc.status, id;
 	//判断是不是function，简单粗暴，99.9%正确就行了。。不是的话打上nf标记(not function)
 	status.fn || line.indexOf('function')>-1 || (comment.nf = 1);
@@ -98,11 +100,11 @@ function parseNextline(line){
 				doc.scope.ns = id; //设置接下来的命名空间
 			}
 		}else{
-			//用单双引号包着属性名的，只收集属性名匹配\w+的
+			//用单双引号包着属性名的，只收集属性名匹配[\w$]+的
 			//也就是不收集如'.,dj ;'，'abc"def'这样的属性
 			//瞎命名就该“惩罚”。。
 			id = line.match(/^['"](.+?)['"]\s*:/);
-			if(id && /^\w+$/.test(id[1])){ 
+			if(id && /^[\w$]+$/.test(id[1])){
 				line = status.ns || doc.scope.ns;
 				line && (id = line + '.' + id[1]);
 			}else{
@@ -110,14 +112,22 @@ function parseNextline(line){
 			}
 		}
 	}
-	//console.log(id);
-	id && (comment.id = id);
+	// console.log(id);
+	// id && (comment.id = id);
+	if (id) {
+		comment.id = id;
+		if (comment_ids[id]) {
+			repeat_ids[id] = true;
+		} else {
+			comment_ids[id] = true;
+		}
+	}
 }
-function collectText(line){
-	//console.log(line);
+function collectText(line) {
+	// console.log(line);
 	now_tag_data.push(line);
 }
-function stopCollect(nextline){
+function stopCollect(nextline) {
 	collectTag(false);
 	if(comment.desc){ //必须有描述
 		comment.f = doc.scope.f;
@@ -187,8 +197,12 @@ function readAllFiles(root) {
 	readFiles(root);
 }
 
-function outputData(){
+function outputData() {
 	var fd = FS.openSync(path_data+'ALL_COMMENTS.js', 'w', '0666');
+	var i = all_comments.length;
+	while (i--) {
+		repeat_ids[all_comments[i].id] && (all_comments[i]._rid = 1); // 给重复的id打上标签_rid
+	}
 	FS.writeSync(fd, 'var ALL_COMMENTS = '+stringifyData(all_comments)+';\r\n', 0, 'utf8');
 	FS.closeSync(fd);
 	var db = doc.db, table;
@@ -202,7 +216,7 @@ function outputData(){
 	}
 }
 
-function makeDir(doc_path){
+function makeDir(doc_path) {
 	doc_path.slice(-1)==='/' || (doc_path += '/');
 	path_data = doc_path + 'data/';
 	path_code = doc_path + 'code/';
@@ -211,7 +225,7 @@ function makeDir(doc_path){
 	FS.existsSync(path_code) || FS.mkdirSync(path_code);
 }
 
-exports.start = function(config){
+exports.start = function (config) {
 	var trace = require('./lib/trace');
 	prj_conf = config;
 	if(!prj_conf.doc_path){
