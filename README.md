@@ -55,7 +55,7 @@
 
 ## 使用mokdoc生成文档的实例
 
-air组件库API：[http://mokjs.sinaapp.com/air-api](http://mokjs.sinaapp.com/air-api)
+air组件库API：[http://mokjs.com/air-api](http://mokjs.com/air-api)
 
 ## 版本发布记录
 
