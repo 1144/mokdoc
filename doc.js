@@ -19,10 +19,9 @@ module.exports = function(){
 
 		err_log: [], //收集错误或警告信息
 
-		//将data数组字符串化
-		stringify: function(data){
-			//console.log(data);
-			//丢弃data的第一行
+		// 将data数组字符串化
+		stringify(data) {
+			// 丢弃data的第一行
 			var res = '', i = 1, len = data.length;
 			for(; i < len; i++){
 				res += data[i].replace(/^[\t ]+/, '');

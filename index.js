@@ -21,6 +21,9 @@ mokdoc.start = function (projectName, callback) {
 	typeof callback==='function' && callback();
 };
 
+mokdoc.regMokComment = /[ \t]*\/\*(?:\*|-)-[\d\D]+?\*\/[ \t]*/g
+mokdoc.translator = require('./translator')
+
 //捕获漏网的异常
 process.on('uncaughtException', function (err) {
 	console.error('\nMOKDOC-003: 发生异常，生成文档失败：\n'+err.stack);

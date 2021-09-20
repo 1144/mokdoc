@@ -1,6 +1,6 @@
 {
   "name": "mokdoc",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "项目文档生成工具",
   "license": "MIT",
   "homepage": "http://mokjs.com/mokdoc",
@@ -10,12 +10,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/1144/mokdoc"
+    "url": "git+https://github.com/1144/mokdoc.git"
   },
-  "author": {
-    "name": "Liming Feng",
-    "email": "flm1144@163.com"
-  },
+  "author": "hahaboy",
   "engines": {
     "node": ">=0.10.0"
   }
