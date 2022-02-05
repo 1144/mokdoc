@@ -11,32 +11,32 @@
 //构建数据字典
 exports.tag = {
 	multiple: true,
-	handler: function(cmd, data, doc){
+	handler(cmd, data, doc) {
 		if(cmd.length>2){
-			var id = cmd[1];
+			var id = cmd[1]
 			//创建一个新的字典表
 			if(id==='-create'){
-				id = cmd[2];
+				id = cmd[2]
 				if(doc.scope.dicted[id]){
 					doc.scope.err_list.push('The dictionary ['+id+'] in ['+doc.scope.f+
-						'] has been created!');
+						'] has been created!')
 				}else{
 					doc.db.dict_list.push({
 						f: doc.scope.f,
 						id: id,
 						desc: cmd.slice(3).join(' ') + doc.stringify(data)
-					});
+					})
 				}
 			}else{
 				//向字典表添加数据
-				var dc = doc.db.dict_content;
+				var dc = doc.db.dict_content
 				(dc[id] || (dc[id] = [])).push({
 					f: doc.scope.f,
 					val: cmd[2],
 					desc: cmd.slice(3).join(' ') + doc.stringify(data)
-				});
+				})
 			}
 		}
-		return false;
+		return false
 	}
-};
+}

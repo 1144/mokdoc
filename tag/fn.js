@@ -1,7 +1,7 @@
-//标识这是一个function
+// 鏍囪瘑杩欐槸涓�涓猣unction
 exports.tag = {
-	handler: function(cmd, data, doc){
-		doc.status.fn = true;
-		return false;
+	handler(cmd, data, doc) {
+		doc.status.fn = true
+		return false
 	}
-};
+}

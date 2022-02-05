@@ -1,7 +1,7 @@
 
 exports.tag = {
-	handler: function(cmd, data, doc){
-		doc.status.t.push(' file ');
-		return false;
+	handler(cmd, data, doc) {
+		doc.status.t.push(' file ')
+		return false
 	}
-};
+}

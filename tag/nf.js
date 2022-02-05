@@ -1,7 +1,7 @@
-//±êÊ¶Õâ²»ÊÇÒ»¸öfunction
+// æ ‡è¯†è¿™ä¸æ˜¯ä¸€ä¸ª function
 exports.tag = {
-	handler: function(cmd, data, doc){
-		doc.status.nf = true;
-		return false;
+	handler(cmd, data, doc) {
+		doc.status.nf = true
+		return false
 	}
-};
+}

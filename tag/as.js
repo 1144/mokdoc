@@ -1,9 +1,10 @@
 
 exports.tag = {
-	handler: function(cmd, data, doc){
-		if(cmd.length>1){
-			doc.scope.ns = doc.status.as = cmd[1]; //ËùÒÔasÍ¬Ê±»á¸Ä±äÏÂÎÄÃüÃû¿Õ¼ä
+	handler(cmd, data, doc) {
+		if (cmd.length > 1) {
+      // æ‰€ä»¥asåŒæ—¶ä¼šæ”¹å˜ä¸‹æ–‡å‘½åç©ºé—´
+			doc.scope.ns = doc.status.as = cmd[1]
 		}
-		return false;
+		return false
 	}
-};
+}

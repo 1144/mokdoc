@@ -1,18 +1,19 @@
 
-//¹¹½¨´úÂëÎ¬»¤¡¢ÏîÄ¿Î¬»¤µÄÖªÊ¶¿â
+// æž„å»ºä»£ç ç»´æŠ¤ã€é¡¹ç›®ç»´æŠ¤çš„çŸ¥è¯†åº“
 exports.tag = {
 	multiple: false,
-	handler: function(cmd, data, doc){
-		if(cmd.length>1){
-			//-know Ïàµ±ÓÚ±êÌâ
-			doc.status.know = true; //´òÉÏknow±ê¼Ç
-			return cmd.slice(1).join(' ') + doc.stringify(data);
-			/*doc.db.know.push({
+	handler(cmd, data, doc) {
+		if (cmd.length > 1) {
+      // -know ç›¸å½“äºŽæ ‡é¢˜
+			doc.status.know = true; // æ‰“ä¸Šknowæ ‡è®°
+			return cmd.slice(1).join(' ') + doc.stringify(data)
+			/*
+      doc.db.know.push({
 				f: doc.scope.f,
 				desc: cmd.slice(1).join(' ') + doc.stringify(data)
-			});
+			})
 			*/
 		}
-		return false;
+		return false
 	}
-};
+}
