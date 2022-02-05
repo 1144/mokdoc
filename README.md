@@ -55,7 +55,7 @@
 
 ## 使用mokdoc生成文档的实例
 
-air组件库API：[http://mokjs.com/air-api](http://mokjs.com/air-api)
+[nkb 使用文档](https://github.com/1144/nkb/tree/main/docs)
 
 ## 版本发布记录
 
